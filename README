@@ -1,0 +1,8 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1741
+
+Enables you to evaluate code in R (http://www.r-project.org) via the shell command "osascript". Tested on Vim 7.0, R 2.4.0 (GUI 1.17) and Mac OS 10.4.8. Probably should also work on earlier versions.
+
+Evaluate current line or visual selection with <Cmd-E> and source current file with <Shift-Cmd-E>. The key mappings are inspired by the R GUI internal editor.
+
+TODO (patches accepted!):
+- the key mappings should be customizable
