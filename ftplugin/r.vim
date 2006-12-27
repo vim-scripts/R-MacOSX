@@ -29,10 +29,20 @@ function s:EscapeR (text)
     let z = escape(z, "!")  " Omit this and die! Causes funny errors when
                             " there's an exlamation mark in the string.
     let z = escape(z, "%")  " Escape the current buffer name.
+    let z = escape(z, "#")  " Escape the alternate file name.
     let z = substitute(z, "\n", '\\n', "g")
     return (z)
 endfunction
 endif
+
+" Get the full path and buffer name. Now the file can be sourced regardless of
+" R's working directory.
+if !exists("*s:FullName")
+function s:FullName (buffer)
+    return getcwd() . "/" . bufname(a:buffer)
+endfunction
+endif
+
 
 " Function to source file in existing R session:
 if !exists("*s:Source_file")
@@ -62,7 +72,7 @@ function s:Source () range
 endfunction
 endif
 
-command -buffer         SourceFile  call s:Source_file("%")
+command -buffer         SourceFile  call s:Source_file(s:FullName("%"))
 command -buffer -range  Source      <line1>,<line2>call s:Source()
 
 nmap <buffer> <D-e> :Source<CR>
